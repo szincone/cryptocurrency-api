@@ -28,4 +28,18 @@ const coinData = request(URL, (e, res, html) => {
       );
     }
   });
+
+  // names
+  const nameArr = [];
+  siteData[1].forEach((name) => {
+    if (name.match(/\/">(.*?)</g) !== null) {
+      nameArr.push(
+        name
+          .match(/\/">(.*?)</g)
+          .toString()
+          .replace(/[<>/"]/g, '')
+          .split(',')[1],
+      );
+    }
+  });
 });
