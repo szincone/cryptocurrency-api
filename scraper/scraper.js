@@ -47,7 +47,9 @@ const coinData = request(URL, (e, res, html) => {
   const markCap = [];
   siteData[3].forEach((num) => {
     if (num !== 'Market Cap') {
-      markCap.push(num.substring(1, num.length - 1));
+      markCap.push(
+        parseInt(num.substring(2, num.length - 1).replace(/,/g, ''), 10),
+      );
     }
   });
 
