@@ -87,6 +87,18 @@ const coinData = request(URL, (e, res, html) => {
     }
   });
   btcPrice = btcPrice.map(p => Number(Number(p).toFixed(3)));
+
+  // circulating supply
+  const circulation = [];
+  siteData[5].forEach((num) => {
+    let numMatch = num.match(/>(.*?)</g);
+    if (numMatch !== null) {
+      numMatch = numMatch.toString().replace(/,/g, '');
+      circulation.push(
+        parseInt(numMatch.substring(1, numMatch.length - 1), 10),
+      );
+    }
+  });
 });
 
 module.exports = {
