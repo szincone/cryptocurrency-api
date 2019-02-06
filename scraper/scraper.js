@@ -50,4 +50,29 @@ const coinData = request(URL, (e, res, html) => {
       markCap.push(num.substring(1, num.length - 1));
     }
   });
+
+  // price
+  let usdPrice = [];
+  function regexPriceMethods(string) {
+    // grabs between quotations
+    return string
+      .match(/(['"])([ ]?.)*?\1/g)
+      .toString()
+      .split(',');
+  }
+  siteData[4].forEach((num) => {
+    if (num !== 'Price') {
+      usdPrice.push(
+        regexPriceMethods(num)[2].substring(
+          1,
+          regexPriceMethods(num)[2].length - 1,
+        ),
+      );
+    }
+  });
+  usdPrice = usdPrice.map(p => Number(Number(p).toFixed(2)));
 });
+
+module.exports = {
+  coinData,
+};
