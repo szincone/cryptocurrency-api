@@ -55,19 +55,16 @@ const coinData = request(URL, (e, res, html) => {
 
   // price
   let usdPrice = [];
-  function regexPriceMethods(string) {
+  function regexPriceMethods(string, i) {
     // grabs between quotations
-    return string
-      .match(/(['"])([ ]?.)*?\1/g)
-      .toString()
-      .split(',');
+    return string.match(/(['"])([ ]?.)*?\1/g)[i];
   }
   siteData[4].forEach((num) => {
     if (num !== 'Price') {
       usdPrice.push(
-        regexPriceMethods(num)[2].substring(
+        regexPriceMethods(num, 2).substring(
           1,
-          regexPriceMethods(num)[2].length - 1,
+          regexPriceMethods(num, 2).length - 1,
         ),
       );
     }
@@ -79,9 +76,9 @@ const coinData = request(URL, (e, res, html) => {
   siteData[4].forEach((num) => {
     if (num !== 'Price') {
       btcPrice.push(
-        regexPriceMethods(num)[3].substring(
+        regexPriceMethods(num, 3).substring(
           1,
-          regexPriceMethods(num)[3].length - 1,
+          regexPriceMethods(num, 3).length - 1,
         ),
       );
     }
@@ -97,6 +94,16 @@ const coinData = request(URL, (e, res, html) => {
       circulation.push(
         parseInt(numMatch.substring(1, numMatch.length - 1), 10),
       );
+    }
+  });
+
+  // volume (24h)
+  const volume = [];
+  siteData[6].forEach((num) => {
+    let volMatch = num.match(/>(.*?)</g);
+    if (volMatch !== null && volMatch[0] !== '>?<') {
+      volMatch = volMatch[0].substring(1, volMatch[0].length - 1);
+      volume.push(volMatch);
     }
   });
 });
