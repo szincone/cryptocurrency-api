@@ -71,6 +71,20 @@ const coinData = request(URL, (e, res, html) => {
     }
   });
   usdPrice = usdPrice.map(p => Number(Number(p).toFixed(2)));
+
+  // btc_price
+  let btcPrice = [];
+  siteData[4].forEach((num) => {
+    if (num !== 'Price') {
+      btcPrice.push(
+        regexPriceMethods(num)[3].substring(
+          1,
+          regexPriceMethods(num)[3].length - 1,
+        ),
+      );
+    }
+  });
+  btcPrice = btcPrice.map(p => Number(Number(p).toFixed(3)));
 });
 
 module.exports = {
