@@ -125,6 +125,15 @@ const coinData = request(URL, (e, res, html) => {
       flucDay.push(flucMatch);
     }
   });
+
+  // fluc (week)
+  const flucWeek = [];
+  siteData[9].forEach((num) => {
+    const flucMatch = parseFloat(num.substring(0, num.length - 1));
+    if (!Number.isNaN(flucMatch)) {
+      flucWeek.push(flucMatch);
+    }
+  });
 });
 
 module.exports = {
