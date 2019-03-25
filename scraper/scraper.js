@@ -69,7 +69,7 @@ const coinData = request(URL, (e, res, html) => {
       );
     }
   });
-  usdPrice = usdPrice.map(p => Number(Number(p).toFixed(2)));
+  usdPrice = usdPrice.map((p) => Number(Number(p).toFixed(2)));
 
   // btc_price
   let btcPrice = [];
@@ -83,7 +83,7 @@ const coinData = request(URL, (e, res, html) => {
       );
     }
   });
-  btcPrice = btcPrice.map(p => Number(Number(p).toFixed(3)));
+  btcPrice = btcPrice.map((p) => Number(Number(p).toFixed(3)));
 
   // circulating supply
   const circulation = [];
@@ -104,6 +104,15 @@ const coinData = request(URL, (e, res, html) => {
     if (volMatch !== null && volMatch[0] !== '>?<') {
       volMatch = volMatch[0].substring(1, volMatch[0].length - 1);
       volume.push(volMatch);
+    }
+  });
+
+  // fluc (1h)
+  const flucHour = [];
+  siteData[7].forEach((num) => {
+    const flucMatch = parseFloat(num.substring(0, num.length - 1));
+    if (num !== null && num !== '% 1h') {
+      flucHour.push(flucMatch);
     }
   });
 });
