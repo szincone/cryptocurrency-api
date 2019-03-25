@@ -112,8 +112,17 @@ const coinData = request(URL, (e, res, html) => {
   const flucHour = [];
   siteData[7].forEach((num) => {
     const flucMatch = parseFloat(num.substring(0, num.length - 1));
-    if (num !== null && num !== '% 1h') {
+    if (!Number.isNaN(flucMatch)) {
       flucHour.push(flucMatch);
+    }
+  });
+
+  // fluc (day)
+  const flucDay = [];
+  siteData[8].forEach((num) => {
+    const flucMatch = parseFloat(num.substring(0, num.length - 1));
+    if (!Number.isNaN(flucMatch)) {
+      flucDay.push(flucMatch);
     }
   });
 });
