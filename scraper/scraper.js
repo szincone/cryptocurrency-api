@@ -103,7 +103,8 @@ const coinData = request(URL, (e, res, html) => {
     let volMatch = num.match(/>(.*?)</g);
     if (volMatch !== null && volMatch[0] !== '>?<') {
       volMatch = volMatch[0].substring(1, volMatch[0].length - 1);
-      volume.push(volMatch);
+      volMatch = volMatch.substring(1, volMatch.length).replace(/,/g, '');
+      volume.push(parseFloat(volMatch));
     }
   });
 
