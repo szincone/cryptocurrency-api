@@ -134,7 +134,16 @@ const coinData = request(URL, (e, res, html) => {
       flucWeek.push(flucMatch);
     }
   });
-});
+
+  // pop object data
+  nameArr.forEach((name, i) => {
+    console.log('NAME', name);
+  });
+})
+  .then(() => coinData)
+  .catch((err) => {
+    throw err;
+  });
 
 module.exports = {
   coinData,
