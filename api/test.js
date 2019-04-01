@@ -1,12 +1,12 @@
 const { coinData } = require('../scraper/scraper.js');
 
-async function fetchCoinData() {
+const test = async function fetchCoinData() {
   try {
     const scraperData = await coinData;
-    return coinData;
+    console.log('SC1', scraperData);
+    return scraperData;
   } catch (err) {
     throw err;
   }
-}
-// fetchCoinData();
-console.log('SCRAPER DATA', fetchCoinData());
+};
+test();
