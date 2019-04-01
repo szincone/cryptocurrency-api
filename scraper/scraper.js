@@ -6,7 +6,7 @@ const cheerioTableparser = require('cheerio-tableparser');
 const { URL, className } = process.env;
 
 const coinData = request(URL, (e, res, html) => {
-  let siteData = [];
+  let [siteData, coinData] = [[], []];
   if (!e && res.statusCode === 200) {
     const $ = cheerio.load(html);
     cheerioTableparser($);
@@ -137,6 +137,9 @@ const coinData = request(URL, (e, res, html) => {
 
   // pop object data
   nameArr.forEach((name, i) => {
+    const seedingObj = {
+      symbol: symbolArr[i],
+    };
     console.log('NAME', name);
   });
 })
