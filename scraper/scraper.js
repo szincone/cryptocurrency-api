@@ -139,6 +139,15 @@ const coinData = request(URL, (e, res, html) => {
   nameArr.forEach((name, i) => {
     const seedingObj = {
       symbol: symbolArr[i],
+      name: nameArr[i],
+      mar_cap: markCap[i],
+      usd_price: usdPrice[i],
+      btc_price: btcPrice[i],
+      circ: circulation[i],
+      vol: volume[i],
+      fluc_h: flucHour[i],
+      fluc_d: flucDay[i],
+      fluc_w: flucWeek[i],
     };
     console.log('NAME', name);
   });
