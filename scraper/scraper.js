@@ -1,4 +1,4 @@
-require('dotenv').config({ PATH: '../.env' });
+require('dotenv').config({ PATH: '../api/.env' });
 const request = require('request-promise');
 const cheerio = require('cheerio');
 const cheerioTableparser = require('cheerio-tableparser');
