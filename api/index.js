@@ -1,10 +1,10 @@
 require('dotenv').config();
 const express = require('express');
-// const configureMiddleware = require('./middleware/middleware.js');
+const configureMiddleware = require('./middleware/middleware');
 
 const server = express();
 
-// configureMiddleware(server);
+configureMiddleware(server);
 
 const PORT = process.env.PORT || 9000;
 
