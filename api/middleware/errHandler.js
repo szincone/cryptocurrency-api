@@ -1,6 +1,7 @@
 const { responseStatus } = require('../routes/resStatus.js');
 
-function errHandler(err, req, res) {
+// eslint-disable-next-line no-unused-vars
+function errHandler(err, req, res, next) {
   switch (err.code) {
     case responseStatus.badRequest:
       res.status(responseStatus.badRequest).json({
