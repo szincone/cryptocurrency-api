@@ -48,9 +48,15 @@ const coinData = request(URL, (e, res, html) => {
   const markCap = [];
   siteData[3].forEach((num) => {
     if (num !== 'Market Cap') {
-      markCap.push(
-        parseInt(num.substring(2, num.length - 1).replace(/,/g, ''), 10),
+      const convertedNum = parseInt(
+        num.substring(2, num.length - 1).replace(/,/g, ''),
+        10,
       );
+      if (!Number.isNaN(convertedNum)) {
+        markCap.push(convertedNum);
+      } else {
+        markCap.push(0);
+      }
     }
   });
 
@@ -70,21 +76,7 @@ const coinData = request(URL, (e, res, html) => {
       );
     }
   });
-  usdPrice = usdPrice.map((p) => Number(Number(p).toFixed(2)));
-
-  // btc_price
-  let btcPrice = [];
-  siteData[4].forEach((num) => {
-    if (num !== 'Price') {
-      btcPrice.push(
-        regexPriceMethods(num, 3).substring(
-          1,
-          regexPriceMethods(num, 3).length - 1,
-        ),
-      );
-    }
-  });
-  btcPrice = btcPrice.map((p) => Number(Number(p).toFixed(3)));
+  usdPrice = usdPrice.map((p) => Number(Number(p).toFixed(5)));
 
   // circulating supply
   const circulation = [];
@@ -92,20 +84,29 @@ const coinData = request(URL, (e, res, html) => {
     let numMatch = num.match(/>(.*?)</g);
     if (numMatch !== null) {
       numMatch = numMatch.toString().replace(/,/g, '');
-      circulation.push(
-        parseInt(numMatch.substring(1, numMatch.length - 1), 10),
-      );
+      numMatch = parseInt(numMatch.substring(1, numMatch.length - 1), 10);
+      if (!Number.isNaN(numMatch)) {
+        circulation.push(numMatch);
+      } else {
+        circulation.push(0);
+      }
     }
   });
 
   // volume (24h)
   const volume = [];
-  siteData[6].forEach((num) => {
+  siteData[6].forEach((num, i) => {
     let volMatch = num.match(/>(.*?)</g);
-    if (volMatch !== null && volMatch[0] !== '>?<') {
-      volMatch = volMatch[0].substring(1, volMatch[0].length - 1);
-      volMatch = volMatch.substring(1, volMatch.length).replace(/,/g, '');
-      volume.push(parseFloat(volMatch));
+    [volMatch] = volMatch === null ? ['>0<'] : volMatch;
+    volMatch = volMatch.substring(1, volMatch.length - 1);
+    if (volMatch === 'Low Vol' || volMatch === '?' || volMatch === '0') {
+      if (i > 0) {
+        volume.push(0);
+      }
+    } else if (volMatch.includes('$')) {
+      volMatch = volMatch.substring(1, volMatch.length - 1).replace(/,/g, '');
+      volMatch = parseFloat(volMatch);
+      volume.push(volMatch);
     }
   });
 
@@ -141,11 +142,10 @@ const coinData = request(URL, (e, res, html) => {
     const coin = {
       symbol: symbolArr[i],
       name: nameArr[i],
-      mar_cap: markCap[i],
+      market_cap: markCap[i],
       usd_price: usdPrice[i],
-      btc_price: btcPrice[i],
-      circ: circulation[i],
-      vol: volume[i],
+      circulation: circulation[i],
+      volume: volume[i],
       fluc_h: flucHour[i],
       fluc_d: flucDay[i],
       fluc_w: flucWeek[i],
