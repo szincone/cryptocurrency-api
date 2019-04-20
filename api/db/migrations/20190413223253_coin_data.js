@@ -3,14 +3,13 @@ exports.up = function generateDBschema(knex) {
     table.increments('id').primary();
     table.string('symbol').notNullable();
     table.string('name', 120).notNullable();
-    table.integer('market_cap').notNullable();
+    table.integer('market_cap').defaultTo(0);
     table.integer('usd_price').notNullable();
-    table.integer('btc_price').notNullable();
-    table.integer('circulation').notNullable();
-    table.integer('volume').notNullable();
-    table.integer('fluctuation_hour').notNullable();
-    table.integer('fluctuation_day').notNullable();
-    table.integer('fluctuation_week').notNullable();
+    table.integer('circulation').defaultTo(0);
+    table.integer('volume').defaultTo(0);
+    table.integer('fluc_h').defaultTo(0);
+    table.integer('fluc_d').defaultTo(0);
+    table.integer('fluc_w').defaultTo(0);
   });
 };
 
