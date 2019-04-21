@@ -98,15 +98,15 @@ const coinData = request(URL, (e, res, html) => {
   siteData[6].forEach((num, i) => {
     let volMatch = num.match(/>(.*?)</g);
     [volMatch] = volMatch === null ? ['>0<'] : volMatch;
-    volMatch = volMatch.substring(1, volMatch.length - 1);
-    if (volMatch === 'Low Vol' || volMatch === '?' || volMatch === '0') {
-      if (i > 0) {
+    volMatch = volMatch.substring(1, volMatch.length);
+    volMatch = volMatch.substring(1, volMatch.length - 1).replace(/,/g, '');
+    volMatch = parseFloat(volMatch);
+    if (i > 0) {
+      if (Number.isNaN(volMatch)) {
         volume.push(0);
+      } else {
+        volume.push(volMatch);
       }
-    } else if (volMatch.includes('$')) {
-      volMatch = volMatch.substring(1, volMatch.length - 1).replace(/,/g, '');
-      volMatch = parseFloat(volMatch);
-      volume.push(volMatch);
     }
   });
 
@@ -144,9 +144,6 @@ const coinData = request(URL, (e, res, html) => {
     let flucMatch = num.substring(0, num.length - 1);
     flucMatch = parseFloat(flucMatch);
     if (i > 0) {
-      if (i === 2126) {
-        console.log('IT', flucMatch);
-      }
       if (Number.isNaN(flucMatch)) {
         flucWeek.push(0);
       } else {
@@ -157,9 +154,6 @@ const coinData = request(URL, (e, res, html) => {
 
   // pop object data
   nameArr.forEach((name, i) => {
-    if (i === 2128) {
-      console.log('Last name', name, 'flucweek', flucWeek[i]);
-    }
     const coin = {
       symbol: symbolArr[i],
       name: nameArr[i],
