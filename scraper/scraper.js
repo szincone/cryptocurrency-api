@@ -112,33 +112,37 @@ const coinData = request(URL, (e, res, html) => {
 
   // fluc (1h)
   const flucHour = [];
-  siteData[7].forEach((num) => {
-    const flucMatch = parseFloat(num.substring(0, num.length - 1));
-    if (!Number.isNaN(flucMatch)) {
+  siteData[7].forEach((num, i) => {
+    let flucMatch = num.substring(0, num.length - 1);
+    flucMatch = parseFloat(flucMatch);
+    if (i > 0) {
       flucHour.push(flucMatch);
     }
   });
 
   // fluc (day)
   const flucDay = [];
-  siteData[8].forEach((num) => {
+  siteData[8].forEach((num, i) => {
     const flucMatch = parseFloat(num.substring(0, num.length - 1));
-    if (!Number.isNaN(flucMatch)) {
+    if (i > 0) {
       flucDay.push(flucMatch);
     }
   });
 
   // fluc (week)
   const flucWeek = [];
-  siteData[9].forEach((num) => {
+  siteData[9].forEach((num, i) => {
     const flucMatch = parseFloat(num.substring(0, num.length - 1));
-    if (!Number.isNaN(flucMatch)) {
+    if (i > 0) {
       flucWeek.push(flucMatch);
     }
   });
 
   // pop object data
   nameArr.forEach((name, i) => {
+    if (i === 2128) {
+      console.log('Last name', name, 'flucweek', flucWeek[i]);
+    }
     const coin = {
       symbol: symbolArr[i],
       name: nameArr[i],
