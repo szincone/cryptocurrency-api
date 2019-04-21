@@ -116,25 +116,42 @@ const coinData = request(URL, (e, res, html) => {
     let flucMatch = num.substring(0, num.length - 1);
     flucMatch = parseFloat(flucMatch);
     if (i > 0) {
-      flucHour.push(flucMatch);
+      if (Number.isNaN(flucMatch)) {
+        flucHour.push(0);
+      } else {
+        flucHour.push(flucMatch);
+      }
     }
   });
 
   // fluc (day)
   const flucDay = [];
   siteData[8].forEach((num, i) => {
-    const flucMatch = parseFloat(num.substring(0, num.length - 1));
+    let flucMatch = num.substring(0, num.length - 1);
+    flucMatch = parseFloat(flucMatch);
     if (i > 0) {
-      flucDay.push(flucMatch);
+      if (Number.isNaN(flucMatch)) {
+        flucDay.push(0);
+      } else {
+        flucDay.push(flucMatch);
+      }
     }
   });
 
   // fluc (week)
   const flucWeek = [];
   siteData[9].forEach((num, i) => {
-    const flucMatch = parseFloat(num.substring(0, num.length - 1));
+    let flucMatch = num.substring(0, num.length - 1);
+    flucMatch = parseFloat(flucMatch);
     if (i > 0) {
-      flucWeek.push(flucMatch);
+      if (i === 2126) {
+        console.log('IT', flucMatch);
+      }
+      if (Number.isNaN(flucMatch)) {
+        flucWeek.push(0);
+      } else {
+        flucWeek.push(flucMatch);
+      }
     }
   });
 
