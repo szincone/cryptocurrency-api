@@ -1,14 +1,15 @@
 {
-  "name": "cryptocurrency-api",
+  "name": "web-scraper",
   "version": "1.0.0",
-  "description": "scrapes the coin data and exports as JSON object",
+  "description": "web-scraper that exports data in JSON",
   "main": "scraper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "sawyer zincone",
+  "author": "Sawyer Zincone",
   "license": "MIT",
+  "homepage": "https://github.com/szincone/cryptocurrency-api",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "cheerio-tableparser": "^1.0.1",
