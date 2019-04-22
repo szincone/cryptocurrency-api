@@ -3,7 +3,7 @@ const request = require('request-promise');
 const cheerio = require('cheerio');
 const cheerioTableparser = require('cheerio-tableparser');
 
-const { URL, className } = process.env;
+const { URL, CLASS_NAME } = process.env;
 
 const coinArr = [];
 const coinData = request(URL, (e, res, html) => {
@@ -11,7 +11,7 @@ const coinData = request(URL, (e, res, html) => {
   if (!e && res.statusCode === 200) {
     const $ = cheerio.load(html);
     cheerioTableparser($);
-    siteData = $(className).parsetable(true);
+    siteData = $(CLASS_NAME).parsetable(true);
   }
 
   // symbols
