@@ -1,7 +1,7 @@
 {
-  "name": "coin-scraper",
+  "name": "cryptocurrency-api",
   "version": "1.0.0",
-  "description": "express server seeded w/ crypto-currency data",
+  "description": "nodejs server seeded w/ cryptocurrency data",
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --verbose",
